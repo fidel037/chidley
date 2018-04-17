@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"sort"
+	"strings"
 	//"strconv"
 )
 
@@ -60,11 +61,11 @@ func print(v *PrintGoStructVisitor, node *Node) error {
 
 	attributes := v.globalTagAttributes[nk(node)]
 	//v.lineChannel <- "type " + node.makeType(namePrefix, nameSuffix) + " struct {"
-	fmt.Fprintln(v.writer, "type "+node.makeType(namePrefix, nameSuffix)+" struct {")
+	fmt.Fprintln(v.writer, "// "+node.makeType(namePrefix, nameSuffix)+" struct\ntype "+node.makeType(namePrefix, nameSuffix)+" struct {")
 
 	//	fmt.Fprintln(v.writer, "\tXMLName xml.Name`"+makeXmlAnnotation(node.space, false, node.name)+" "+makeJsonAnnotation(node.spaceTag, false, node.name)+"`")
 
-	fmt.Fprintln(v.writer, "\tXMLName xml.Name `"+makeAnnotation("xml", node.space, false, false, node.name)+" "+makeJsonAnnotation(node.spaceTag, false, node.name)+"`")
+	// fmt.Fprintln(v.writer, "\tXMLName xml.Name `"+makeAnnotation("xml", node.space, false, false, node.name)+" "+makeJsonAnnotation(node.spaceTag, false, node.name)+"`")
 
 	//return makeAnnotation("xml", spaceTag, true, false, name)
 
@@ -140,7 +141,7 @@ func (v *PrintGoStructVisitor) printInternalFields(nattributes int, n *Node) err
 		thisType := findType(n.nodeTypeInfo, useType)
 		thisVariableName := findFieldNameFromTypeInfo(thisType)
 
-		charField := "\t" + thisVariableName + " " + thisType + xmlString
+		charField := "\t" + strings.Title(thisVariableName) + " " + thisType + xmlString
 
 		if flattenStrings {
 			//charField += "// maxLength=" + strconv.FormatInt(n.nodeTypeInfo.maxLength, 10)

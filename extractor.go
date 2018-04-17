@@ -36,7 +36,7 @@ type Extractor struct {
 	handleTokensDoneChannel chan bool
 }
 
-const RootName = "ChidleyRoot314159"
+const RootName = "RootElement"
 
 func (ex *Extractor) init() {
 	ex.globalTagAttributes = make(map[string]([]*FQN))

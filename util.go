@@ -142,20 +142,20 @@ func makeAttributes(writer io.Writer, attributes []*FQN, nameSpaceTagMap map[str
 		//variableName := attributePrefix + capitalizeFirstLetter(nameSpaceTag) + cleanName(name)
 		variableName := goVariableNameSanitize(attributePrefix + capitalizeFirstLetter(nameSpaceTag) + cleanName(name))
 		variableType := "string"
-
+		variableName = strings.Replace(variableName, "_", "", -1)
 		//lineChannel <- "\t" + variableName + " " + variableType + "`xml:\"" + nameSpace + name + ",attr\"  json:\",omitempty\"`" + "  // maxLength=" + strconv.Itoa(fqn.maxLength)
 		//fmt.Fprintln(writer, "\t"+variableName+" "+variableType+"`xml:\""+nameSpace+name+",attr\"  json:\",omitempty\"`"+"  // maxLength="+strconv.Itoa(fqn.maxLength))
-		fmt.Fprintln(writer, "\t"+variableName+" "+variableType+"`xml:\""+nameSpace+name+",attr\"  json:\",omitempty\"`")
+		fmt.Fprintln(writer, "\t"+variableName+" "+variableType+" `xml:\""+nameSpace+name+",attr\"  json:\""+name+",omitempty\"`")
 	}
 }
 
 func goVariableNameSanitize(s string) string {
-	s = strings.Replace(s, ":", "_colon_", -1)
-	s = strings.Replace(s, "/", "_slash_", -1)
-	s = strings.Replace(s, ".", "_dot_", -1)
-	s = strings.Replace(s, "-", "_dash_", -1)
-	s = strings.Replace(s, " ", "_space_", -1)
-	s = strings.Replace(s, "-", "_dash_", -1)
+	s = strings.Replace(s, ":", "", -1)
+	s = strings.Replace(s, "/", "", -1)
+	s = strings.Replace(s, ".", "", -1)
+	s = strings.Replace(s, "-", "", -1)
+	s = strings.Replace(s, " ", "", -1)
+	s = strings.Replace(s, "-", "", -1)
 
 	return s
 }
