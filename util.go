@@ -143,6 +143,9 @@ func makeAttributes(writer io.Writer, attributes []*FQN, nameSpaceTagMap map[str
 		variableName := goVariableNameSanitize(attributePrefix + capitalizeFirstLetter(nameSpaceTag) + cleanName(name))
 		variableType := "string"
 		variableName = strings.Replace(variableName, "_", "", -1)
+		if len(nameSpaceTag) > 0 && nameSpaceTag[0:1] != strings.ToUpper(nameSpaceTag[0:1]) {
+			continue
+		}
 		//lineChannel <- "\t" + variableName + " " + variableType + "`xml:\"" + nameSpace + name + ",attr\"  json:\",omitempty\"`" + "  // maxLength=" + strconv.Itoa(fqn.maxLength)
 		//fmt.Fprintln(writer, "\t"+variableName+" "+variableType+"`xml:\""+nameSpace+name+",attr\"  json:\",omitempty\"`"+"  // maxLength="+strconv.Itoa(fqn.maxLength))
 		fmt.Fprintln(writer, "\t"+variableName+" "+variableType+" `xml:\""+nameSpace+name+",attr\"  json:\""+name+",omitempty\"`")

@@ -63,7 +63,7 @@ func print(v *PrintGoStructVisitor, node *Node) error {
 	//v.lineChannel <- "type " + node.makeType(namePrefix, nameSuffix) + " struct {"
 	fmt.Fprintln(v.writer, "// "+node.makeType(namePrefix, nameSuffix)+" struct\ntype "+node.makeType(namePrefix, nameSuffix)+" struct {")
 
-	//	fmt.Fprintln(v.writer, "\tXMLName xml.Name`"+makeXmlAnnotation(node.space, false, node.name)+" "+makeJsonAnnotation(node.spaceTag, false, node.name)+"`")
+	fmt.Fprintln(v.writer, "\tXMLName xml.Name`"+makeXmlAnnotation(node.space, false, node.name)+" "+makeJsonAnnotation(node.spaceTag, false, node.name)+"`")
 
 	// fmt.Fprintln(v.writer, "\tXMLName xml.Name `"+makeAnnotation("xml", node.space, false, false, node.name)+" "+makeJsonAnnotation(node.spaceTag, false, node.name)+"`")
 
